@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>True/False Game</title>
+    <style>
+        :root {
+            --yellow: #FCD307;
+            --orange: #FFBC00;
+            --black: #000000;
+            --gray: #E2E2E2;
+            --white: #FFFFFF;
+            --green: #2E7D32;
+            --red: #C62828;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--gray);
+            color: var(--black);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .question-container {
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            color: var(--black);
+            margin-bottom: 25px;
+            font-size: clamp(1.8rem, 4vw, 2.2rem);
+        }
+
+        .question {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            margin-bottom: 20px;
+            color: var(--black);
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-container {
+            margin: 0 auto 20px;
+            max-width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .image {
+            max-width: 100%;
+            max-height: 300px;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: block;
+            border: 1px solid var(--gray);
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        button {
+            background-color: var(--yellow);
+            color: var(--black);
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1 1 45%;
+            min-width: 120px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: var(--orange);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #feedback {
+            margin-top: 20px;
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            font-weight: bold;
+            min-height: 30px;
+        }
+
+        .correct-feedback {
+            color: var(--green);
+            background-color: rgba(46, 125, 50, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .incorrect-feedback {
+            color: var(--red);
+            background-color: rgba(198, 40, 40, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #explanation {
+            margin-top: 15px;
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            color: var(--black);
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+        }
+
+        .progress {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: var(--black);
+            opacity: 0.7;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        .correct-pill {
+            background-color: rgba(46, 125, 50, 0.1);
+            color: var(--green);
+        }
+
+        .try-again-pill {
+            background-color: #FFCDD2;
+            color: var(--red);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 10px 20px;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+            font-size: 18px;
+        }
+
+        .try-again-pill:hover {
+            background-color: #FF1744;
+        }
+
+        .continue-pill {
+            background-color: var(--yellow);
+            color: var(--black);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 10px 20px;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+            font-size: 18px;
+        }
+
+        .continue-pill:hover {
+            background-color: var(--orange);
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        @keyframes correctPulse {
+            0% {
+                transform: scale(1);
+                background-color: var(--white);
+            }
+            50% {
+                transform: scale(1.05);
+                background-color: var(--white);
+            }
+            100% {
+                transform: scale(1);
+                background-color: var(--white);
+            }
+        }
+
+        .correct-animation {
+            animation: correctPulse 1s;
+        }
+
+        @keyframes incorrectShake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            20%, 60% {
+                transform: translateX(-10px);
+            }
+            40%, 80% {
+                transform: translateX(10px);
+            }
+        }
+
+        .incorrect-animation {
+            animation: incorrectShake 0.5s;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+
+            .question-container {
+                padding: 20px;
+            }
+
+            .buttons {
+                gap: 10px;
+            }
+
+            button {
+                flex: 1 1 100%;
+                padding: 10px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .question-container {
+                padding: 30px;
+            }
+
+            button {
+                padding: 15px 30px;
+                font-size: 1.1em;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .question-container {
+                padding: 40px;
+            }
+
+            .image {
+                max-height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="question-container">
+        <h1>True/False Game</h1>
+        <div class="progress" id="progress">Question 1 of 1</div>
+        <div class="question" id="question">Loading questions...</div>
+        <div class="image-container">
+            <img class="image" id="question-image" src="https://static.wixstatic.com/media/9c422e_e854a6e541554bdfba5311e3527e09b3~mv2.png" alt="Question image">
+        </div>
+        <div class="buttons">
+            <button onclick="checkAnswer(true)">True</button>
+            <button onclick="checkAnswer(false)">False</button>
+        </div>
+        <div id="feedback"></div>
+        <div id="explanation"></div>
+        <div class="button-container" id="actionButtons"></div>
+    </div>
+
+    <canvas id="confetti-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100;"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <script>
+        let questions = [
+            {
+                question: "Does WeSpark leverage Artificial Intelligence's power?",
+                answer: true,
+                image: "https://static.wixstatic.com/media/9c422e_e854a6e541554bdfba5311e3527e09b3~mv2.png",
+                explanation: "WeSpark uses AI as a core technology for new products & services, it teaches AI introduction training, and empowers all digital education courses with AI."
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let correctAnswers = 0;
+        let confettiInterval;
+        let feedbackConfig = {};
+        let countdownInterval;
+        let countdown = 10;
+
+        function updateProgress() {
+            document.getElementById("progress").textContent =
+                `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+        }
+
+        function loadQuestion() {
+            if (questions.length === 0) {
+                document.getElementById("question").textContent = "No questions configured. Please add questions in the settings.";
+                document.querySelector(".buttons").style.display = "none";
+                document.getElementById("progress").style.display = "none";
+                return;
+            }
+
+            updateProgress();
+
+            const questionObj = questions[currentQuestionIndex];
+            document.getElementById("question").textContent = questionObj.question;
+
+            const imageElement = document.getElementById("question-image");
+            if (questionObj.image) {
+                imageElement.src = questionObj.image;
+                imageElement.style.display = "block";
+            } else {
+                imageElement.style.display = "none";
+            }
+
+            document.getElementById("feedback").textContent = "";
+            document.getElementById("feedback").className = "";
+            document.getElementById("explanation").textContent = "";
+
+            document.getElementById("actionButtons").innerHTML = "";
+
+            document.querySelectorAll(".buttons button").forEach(btn => {
+                btn.disabled = false;
+            });
+        }
+
+        function checkAnswer(userAnswer) {
+            if (questions.length === 0) return;
+
+            const correctAnswer = questions[currentQuestionIndex].answer;
+            const feedbackElement = document.getElementById("feedback");
+            const explanationElement = document.getElementById("explanation");
+            const questionContainer = document.querySelector(".question-container");
+            const actionButtons = document.getElementById("actionButtons");
+
+            document.querySelectorAll(".buttons button").forEach(btn => {
+                btn.disabled = true;
+            });
+
+            if (userAnswer === correctAnswer) {
+                const correctMessage = document.createElement("div");
+                correctMessage.className = "pill correct-pill";
+                correctMessage.textContent = feedbackConfig.correctFeedback || "Correct!";
+                feedbackElement.innerHTML = "";
+                feedbackElement.appendChild(correctMessage);
+
+                questionContainer.classList.add("correct-animation");
+                setTimeout(() => {
+                    questionContainer.classList.remove("correct-animation");
+                }, 1000);
+
+                startConfetti();
+                correctAnswers++;
+
+                explanationElement.textContent = questions[currentQuestionIndex].explanation || "Great job! You got it right.";
+
+                const continueButton = document.createElement("button");
+                continueButton.className = "continue-pill";
+                continueButton.textContent = `Continue [10]`;
+                continueButton.onclick = function() {
+                    window.location.href = "mejormatch.html";
+                };
+                actionButtons.innerHTML = "";
+                actionButtons.appendChild(continueButton);
+
+                startCountdown(continueButton);
+            } else {
+                feedbackElement.innerHTML = `
+                    <div class="incorrect-feedback">${feedbackConfig.incorrectFeedback || "Incorrect!"}</div>
+                `;
+
+                questionContainer.classList.add("incorrect-animation");
+                setTimeout(() => {
+                    questionContainer.classList.remove("incorrect-animation");
+                }, 500);
+
+                explanationElement.textContent = questions[currentQuestionIndex].incorrectExplanation || "As an innovation agency, WeSpark is expected to be able to utilize the most disruptive technological tools & trends; this includes AI.";
+
+                const tryAgainButton = document.createElement("button");
+                tryAgainButton.className = "try-again-pill";
+                tryAgainButton.textContent = "Try Again";
+                tryAgainButton.onclick = function() {
+                    feedbackElement.textContent = "";
+                    explanationElement.textContent = "";
+                    actionButtons.innerHTML = "";
+                    loadQuestion();
+                };
+                actionButtons.innerHTML = "";
+                actionButtons.appendChild(tryAgainButton);
+            }
+        }
+
+        function startCountdown(button) {
+            countdown = 10;
+            button.textContent = `Continue [${countdown}]`;
+            countdownInterval = setInterval(() => {
+                countdown--;
+                button.textContent = `Continue [${countdown}]`;
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    window.location.href = "mejormatch.html";
+                }
+            }, 1000);
+        }
+
+        function nextQuestion() {
+            clearInterval(countdownInterval);
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex >= questions.length) {
+                document.getElementById("question").textContent = "Completed!";
+                document.getElementById("progress").textContent = `Score: ${correctAnswers} of ${questions.length}`;
+                document.querySelector(".buttons").style.display = "none";
+                document.getElementById("feedback").innerHTML = `
+                    <div class="pill correct-pill">${feedbackConfig.completionMessage ?
+                        feedbackConfig.completionMessage.replace('{score}', correctAnswers).replace('{total}', questions.length) :
+                        `completed! You got ${correctAnswers} out of ${questions.length} correct.`}</div>
+                `;
+                document.getElementById("explanation").textContent = "";
+
+                const restartButton = document.createElement("button");
+                restartButton.className = "continue-pill";
+                restartButton.textContent = "Restart Quiz";
+                restartButton.onclick = function() {
+                    currentQuestionIndex = 0;
+                    correctAnswers = 0;
+                    document.querySelector(".buttons").style.display = "flex";
+                    loadQuestion();
+                };
+                document.getElementById("actionButtons").innerHTML = "";
+                document.getElementById("actionButtons").appendChild(restartButton);
+            } else {
+                loadQuestion();
+            }
+        }
+
+        function startConfetti() {
+            const canvas = document.getElementById("confetti-canvas");
+            const myConfetti = confetti.create(canvas, { resize: true, useWorker: true });
+
+            if (confettiInterval) {
+                clearInterval(confettiInterval);
+            }
+
+            let count = 0;
+            const maxCount = 3;
+            confettiInterval = setInterval(() => {
+                myConfetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+                count++;
+                if (count >= maxCount) {
+                    clearInterval(confettiInterval);
+                }
+            }, 1000);
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            loadQuestion();
+        });
+    </script>
+</body>
+</html>
