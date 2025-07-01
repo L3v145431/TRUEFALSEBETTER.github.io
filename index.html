@@ -1,488 +1,412 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>True/False Game</title>
-    <style>
-        :root {
-            --yellow: #FCD307;
-            --orange: #FFBC00;
-            --black: #000000;
-            --gray: #E2E2E2;
-            --white: #FFFFFF;
-            --green: #2E7D32;
-            --red: #C62828;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>True/False Game</title>
+  <style>
+    :root {
+      --yellow: #FCD307;
+      --orange: #FFBC00;
+      --black: #000000;
+      --gray: #E2E2E2;
+      --white: #FFFFFF;
+      --green: #2E7D32;
+      --red: #C62828;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: var(--gray);
-            color: var(--black);
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            line-height: 1.6;
-            position: relative;
-            overflow-x: hidden;
-        }
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: var(--gray);
+      color: var(--black);
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      line-height: 1.6;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-        .question-container {
-            background-color: var(--white);
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            padding: 25px;
-            width: 100%;
-            max-width: 600px;
-            text-align: center;
-            margin: 20px 0;
-            position: relative;
-            z-index: 1;
-        }
+    .game-wrapper {
+      width: 90vmin;
+      height: 90vmin;
+      max-width: 600px;
+      max-height: 600px;
+    }
 
-        h1 {
-            color: var(--black);
-            margin-bottom: 25px;
-            font-size: clamp(1.8rem, 4vw, 2.2rem);
-        }
+    .question-container {
+      background-color: var(--white);
+      border-radius: 4vmin;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 25px;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      overflow-y: auto;
+    }
 
-        .question {
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
-            margin-bottom: 20px;
-            color: var(--black);
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    h1 {
+      color: var(--black);
+      margin-bottom: 25px;
+      font-size: clamp(1.8rem, 4vw, 2.2rem);
+    }
 
-        .image-container {
-            margin: 0 auto 20px;
-            max-width: 100%;
-            display: flex;
-            justify-content: center;
-        }
+    .question {
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      margin-bottom: 20px;
+      color: var(--black);
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .image {
-            max-width: 100%;
-            max-height: 300px;
-            height: auto;
-            border-radius: 8px;
-            margin-top: 10px;
-            display: block;
-            border: 1px solid var(--gray);
-        }
+    .image-container {
+      margin: 0 auto 20px;
+      max-width: 100%;
+      display: flex;
+      justify-content: center;
+    }
 
-        .buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 25px;
-        }
+    .image {
+      max-width: 100%;
+      max-height: 300px;
+      height: auto;
+      border-radius: 8px;
+      margin-top: 10px;
+      display: block;
+      border: 1px solid var(--gray);
+    }
 
-        button {
-            background-color: #FCD307;
-            color: #000000;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            padding: 10px 20px;
-            margin-top: 10px;
-            transition: background-color 0.3s;
-            font-size: 18px;
-        }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 25px;
+    }
 
-        button:hover {
-            background-color: var(--orange);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+    button {
+      background-color: #FCD307;
+      color: #000000;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      padding: 10px 20px;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+      font-size: 18px;
+    }
 
-        button:active {
-            transform: translateY(0);
-        }
+    button:hover {
+      background-color: var(--orange);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-        #feedback {
-            margin-top: 20px;
-            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
-            font-weight: bold;
-            min-height: 30px;
-        }
+    button:active {
+      transform: translateY(0);
+    }
 
-        .correct-feedback {
-            color: var(--green);
-            background-color: rgba(46, 125, 50, 0.1);
-            padding: 10px;
-            border-radius: 5px;
-        }
+    #feedback {
+      margin-top: 20px;
+      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+      font-weight: bold;
+      min-height: 30px;
+    }
 
-        .incorrect-feedback {
-            color: var(--red);
-            background-color: rgba(198, 40, 40, 0.1);
-            padding: 10px;
-            border-radius: 5px;
-        }
+    .correct-feedback {
+      color: var(--green);
+      background-color: rgba(46, 125, 50, 0.1);
+      padding: 10px;
+      border-radius: 5px;
+    }
 
-        #explanation {
-            margin-top: 15px;
-            font-size: clamp(1rem, 2vw, 1.1rem);
-            color: var(--black);
-            padding: 10px;
-            background-color: rgba(0, 0, 0, 0.05);
-            border-radius: 8px;
-        }
+    .incorrect-feedback {
+      color: var(--red);
+      background-color: rgba(198, 40, 40, 0.1);
+      padding: 10px;
+      border-radius: 5px;
+    }
 
-        .progress-bar {
-            display: flex;
-            justify-content: space-between;
-            gap: 4px;
-            width: 100%;
-            height: 12px;
-            margin-bottom: 20px;
-            background-color: transparent;
-        }
+    #explanation {
+      margin-top: 15px;
+      font-size: clamp(1rem, 2vw, 1.1rem);
+      color: var(--black);
+      padding: 10px;
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+    }
 
-        .progress-segment {
-            flex: 1;
-            background-color: #ddd;
-            transition: background-color 0.3s ease;
-            height: 100%;
-        }
+    .progress-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 4px;
+      width: 100%;
+      height: 12px;
+      margin-bottom: 20px;
+      background-color: transparent;
+    }
 
-        .progress-segment:first-child {
-            border-top-left-radius: 6px;
-            border-bottom-left-radius: 6px;
-        }
+    .progress-segment {
+      flex: 1;
+      background-color: #ddd;
+      transition: background-color 0.3s ease;
+      height: 100%;
+    }
 
-        .progress-segment:last-child {
-            border-top-right-radius: 6px;
-            border-bottom-right-radius: 6px;
-        }
+    .progress-segment:first-child {
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+    }
 
-        .progress-segment.filled {
-            background: linear-gradient(to right, #FCD307, #FFBC00);
-        }
+    .progress-segment:last-child {
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+    }
 
-        .progress-segment.flashing {
-            animation: flash 1s infinite;
-        }
+    .progress-segment.filled {
+      background: linear-gradient(to right, #FCD307, #FFBC00);
+    }
 
-        @keyframes flash {
-            0%, 100% {
-                background-color: #ddd;
-            }
-            50% {
-                background-color: rgba(252, 211, 7, 0.7);
-            }
-        }
+    .progress-segment.flashing {
+      animation: flash 1s infinite;
+    }
 
-        .pill {
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            margin: 5px;
-        }
+    @keyframes flash {
+      0%, 100% {
+        background-color: #ddd;
+      }
+      50% {
+        background-color: rgba(252, 211, 7, 0.7);
+      }
+    }
 
-        .correct-pill {
-            background-color: rgba(46, 125, 50, 0.1);
-            color: var(--green);
-        }
+    .pill {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      margin: 5px;
+    }
 
-        .try-again-pill {
-            background-color: #FFCDD2;
-            color: var(--red);
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            padding: 10px 20px;
-            margin-top: 10px;
-            transition: background-color 0.3s;
-            font-size: 18px;
-        }
+    .correct-pill {
+      background-color: rgba(46, 125, 50, 0.1);
+      color: var(--green);
+    }
 
-        .try-again-pill:hover {
-            background-color: #FF1744;
-        }
+    .try-again-pill {
+      background-color: #FFCDD2;
+      color: var(--red);
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      padding: 10px 20px;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+      font-size: 18px;
+    }
 
-        .continue-pill {
-            background-color: var(--yellow);
-            color: var(--black);
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            padding: 10px 20px;
-            margin-top: 10px;
-            transition: background-color 0.3s;
-            font-size: 18px;
-        }
+    .try-again-pill:hover {
+      background-color: #FF1744;
+      color: white;
+    }
 
-        .continue-pill:hover {
-            background-color: var(--orange);
-        }
+    .continue-pill {
+      background-color: var(--yellow);
+      color: var(--black);
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      padding: 10px 20px;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+      font-size: 18px;
+    }
 
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
+    .continue-pill:hover {
+      background-color: var(--orange);
+    }
 
-        .choose-option {
-            font-size: 1rem;
-            margin-bottom: 20px;
-            color: var(--black);
-        }
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
 
-        @media (max-width: 600px) {
-            body {
-                padding: 15px;
-            }
+    .choose-option {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      color: var(--black);
+    }
 
-            .question-container {
-                padding: 20px;
-            }
+    @media (max-width: 600px) {
+      body {
+        padding: 15px;
+      }
 
-            .buttons {
-                gap: 10px;
-            }
+      .buttons {
+        gap: 10px;
+      }
 
-            button {
-                flex: 1 1 100%;
-                padding: 10px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .question-container {
-                padding: 30px;
-            }
-
-            button {
-                padding: 15px 30px;
-                font-size: 1.1em;
-            }
-        }
-
-        @media (min-width: 992px) {
-            .question-container {
-                padding: 40px;
-            }
-
-            .image {
-                max-height: 350px;
-            }
-        }
-    </style>
+      button {
+        flex: 1 1 100%;
+        padding: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="game-wrapper">
     <div class="question-container">
-        <h1></h1>
-        <div class="progress-bar" id="progress-bar">
-            <div class="progress-segment filled"></div>
-            <div class="progress-segment flashing"></div>
-            <div class="progress-segment"></div>
-            <div class="progress-segment"></div>
-            <div class="progress-segment"></div>
-            <div class="progress-segment"></div>
-            <div class="progress-segment"></div>
-        </div>
-        <div class="image-container">
-            <img class="image" id="question-image" src="https://static.wixstatic.com/media/9c422e_e854a6e541554bdfba5311e3527e09b3~mv2.png" alt="Question image">
-        </div>
-        <div class="question" id="question"></div>
-        <div class="choose-option">Please select one option:</div>
-        <div class="buttons">
-            <button onclick="checkAnswer(true)">True</button>
-            <button onclick="checkAnswer(false)">False</button>
-        </div>
-        <div id="feedback"></div>
-        <div id="explanation"></div>
-        <div class="button-container" id="actionButtons"></div>
+      <h1></h1>
+      <div class="progress-bar" id="progress-bar">
+        <div class="progress-segment filled"></div>
+        <div class="progress-segment flashing"></div>
+        <div class="progress-segment"></div>
+        <div class="progress-segment"></div>
+        <div class="progress-segment"></div>
+        <div class="progress-segment"></div>
+        <div class="progress-segment"></div>
+      </div>
+      <div class="image-container">
+        <img class="image" id="question-image" src="https://static.wixstatic.com/media/9c422e_e854a6e541554bdfba5311e3527e09b3~mv2.png" alt="Question image">
+      </div>
+      <div class="question" id="question"></div>
+      <div class="choose-option">Please select one option:</div>
+      <div class="buttons">
+        <button onclick="checkAnswer(true)">True</button>
+        <button onclick="checkAnswer(false)">False</button>
+      </div>
+      <div id="feedback"></div>
+      <div id="explanation"></div>
+      <div class="button-container" id="actionButtons"></div>
     </div>
-    <canvas id="confetti-canvas" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100vmin; height: 100vmin; pointer-events: none; z-index: 100;"></canvas>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <script>
-        let questions = [
-            {
-                question: "<strong>Does WeSpark leverage Artificial Intelligence's power?</strong>",
-                answer: true,
-                image: "https://static.wixstatic.com/media/9c422e_e854a6e541554bdfba5311e3527e09b3~mv2.png",
-                explanation: "WeSpark uses AI as a core technology for new products & services, it teaches AI introduction training, and empowers all digital education courses with AI."
-            }
-        ];
+  </div>
 
-        let currentQuestionIndex = 0;
-        let correctAnswers = 1; // Start with one correct answer to fill the first segment
-        let confettiInterval;
-        let feedbackConfig = {};
-        let countdownInterval;
-        let countdown = 10;
+  <canvas id="confetti-canvas" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100vmin; height: 100vmin; pointer-events: none; z-index: 100;"></canvas>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    let questions = [
+      {
+        question: "<strong>Does WeSpark leverage Artificial Intelligence's power?</strong>",
+        answer: true,
+        image: "https://static.wixstatic.com/media/9c422e_e854a6e541554bdfba5311e3527e09b3~mv2.png",
+        explanation: "WeSpark uses AI as a core technology for new products & services, it teaches AI introduction training, and empowers all digital education courses with AI."
+      }
+    ];
 
-        function updateProgressBar() {
-            const segments = document.querySelectorAll(".progress-segment");
-            segments.forEach((segment, index) => {
-                segment.classList.remove('flashing');
-                if (index < correctAnswers) {
-                    segment.classList.add('filled');
-                }
-                if (index === correctAnswers) {
-                    segment.classList.add('flashing');
-                    segment.classList.remove('filled');
-                }
-            });
+    let currentQuestionIndex = 0;
+    let correctAnswers = 1;
+    let confettiInterval;
+    let feedbackConfig = {};
+    let countdownInterval;
+    let countdown = 10;
+
+    function updateProgressBar() {
+      const segments = document.querySelectorAll(".progress-segment");
+      segments.forEach((segment, index) => {
+        segment.classList.remove('flashing');
+        if (index < correctAnswers) {
+          segment.classList.add('filled');
         }
-
-        function loadQuestion() {
-            if (questions.length === 0) {
-                document.getElementById("question").textContent = "No questions configured. Please add questions in the settings.";
-                document.querySelector(".buttons").style.display = "none";
-                document.getElementById("progress-bar").style.display = "none";
-                return;
-            }
-
-            const questionObj = questions[currentQuestionIndex];
-            document.getElementById("question").innerHTML = questionObj.question;
-
-            const imageElement = document.getElementById("question-image");
-            if (questionObj.image) {
-                imageElement.src = questionObj.image;
-                imageElement.style.display = "block";
-            } else {
-                imageElement.style.display = "none";
-            }
-
-            document.getElementById("feedback").textContent = "";
-            document.getElementById("feedback").className = "";
-            document.getElementById("explanation").textContent = "";
-            document.getElementById("actionButtons").innerHTML = "";
-
-            document.querySelectorAll(".buttons button").forEach(btn => {
-                btn.disabled = false;
-            });
+        if (index === correctAnswers) {
+          segment.classList.add('flashing');
+          segment.classList.remove('filled');
         }
+      });
+    }
 
-        function checkAnswer(userAnswer) {
-            if (questions.length === 0) return;
+    function loadQuestion() {
+      const questionObj = questions[currentQuestionIndex];
+      document.getElementById("question").innerHTML = questionObj.question;
+      document.getElementById("question-image").src = questionObj.image || "";
+      document.getElementById("feedback").textContent = "";
+      document.getElementById("feedback").className = "";
+      document.getElementById("explanation").textContent = "";
+      document.getElementById("actionButtons").innerHTML = "";
+      document.querySelectorAll(".buttons button").forEach(btn => btn.disabled = false);
+    }
 
-            const correctAnswer = questions[currentQuestionIndex].answer;
-            const feedbackElement = document.getElementById("feedback");
-            const explanationElement = document.getElementById("explanation");
-            const questionContainer = document.querySelector(".question-container");
-            const actionButtons = document.getElementById("actionButtons");
+    function checkAnswer(userAnswer) {
+      const correctAnswer = questions[currentQuestionIndex].answer;
+      const feedbackElement = document.getElementById("feedback");
+      const explanationElement = document.getElementById("explanation");
+      const actionButtons = document.getElementById("actionButtons");
 
-            document.querySelectorAll(".buttons button").forEach(btn => {
-                btn.disabled = true;
-            });
+      document.querySelectorAll(".buttons button").forEach(btn => btn.disabled = true);
 
-            if (userAnswer === correctAnswer) {
-                const correctMessage = document.createElement("div");
-                correctMessage.className = "pill correct-pill";
-                correctMessage.textContent = feedbackConfig.correctFeedback || "Correct!";
-                feedbackElement.innerHTML = "";
-                feedbackElement.appendChild(correctMessage);
+      if (userAnswer === correctAnswer) {
+        feedbackElement.innerHTML = `<div class="pill correct-pill">Correct!</div>`;
+        startConfetti();
+        correctAnswers++;
+        updateProgressBar();
+        explanationElement.textContent = questions[currentQuestionIndex].explanation;
 
-                questionContainer.classList.add("correct-animation");
-                setTimeout(() => {
-                    questionContainer.classList.remove("correct-animation");
-                }, 1000);
+        const continueButton = document.createElement("button");
+        continueButton.className = "continue-pill";
+        continueButton.textContent = `Continue [10]`;
+        continueButton.onclick = () => window.location.href = "https://levi5171.wixstudio.com/my-site-1/blank-2";
+        actionButtons.appendChild(continueButton);
+        startCountdown(continueButton);
+      } else {
+        feedbackElement.innerHTML = `<div class="incorrect-feedback">Incorrect!</div>`;
+        explanationElement.textContent = questions[currentQuestionIndex].explanation;
+        const tryAgainButton = document.createElement("button");
+        tryAgainButton.className = "try-again-pill";
+        tryAgainButton.textContent = "Try Again";
+        tryAgainButton.onclick = () => {
+          feedbackElement.textContent = "";
+          explanationElement.textContent = "";
+          actionButtons.innerHTML = "";
+          loadQuestion();
+        };
+        actionButtons.appendChild(tryAgainButton);
+      }
+    }
 
-                startConfetti();
-                correctAnswers++;
-                updateProgressBar();
-
-                explanationElement.textContent = questions[currentQuestionIndex].explanation || "Great job! You got it right.";
-
-                const continueButton = document.createElement("button");
-                continueButton.className = "continue-pill";
-                continueButton.textContent = `Continue [10]`;
-                continueButton.onclick = function() {
-                    currentQuestionIndex++;
-                    window.location.href = "https://levi5171.wixstudio.com/my-site-1/blank-2";
-                };
-                actionButtons.innerHTML = "";
-                actionButtons.appendChild(continueButton);
-
-                startCountdown(continueButton);
-            } else {
-                feedbackElement.innerHTML = `
-                    <div class="incorrect-feedback">${feedbackConfig.incorrectFeedback || "Incorrect!"}</div>
-                `;
-
-                questionContainer.classList.add("incorrect-animation");
-                setTimeout(() => {
-                    questionContainer.classList.remove("incorrect-animation");
-                }, 500);
-
-                explanationElement.textContent = questions[currentQuestionIndex].incorrectExplanation || "As an innovation agency, WeSpark is expected to be able to utilize the most disruptive technological tools & trends; this includes AI.";
-
-                const tryAgainButton = document.createElement("button");
-                tryAgainButton.className = "try-again-pill";
-                tryAgainButton.textContent = "Try Again";
-                tryAgainButton.onclick = function() {
-                    feedbackElement.textContent = "";
-                    explanationElement.textContent = "";
-                    actionButtons.innerHTML = "";
-                    loadQuestion();
-                };
-                actionButtons.innerHTML = "";
-                actionButtons.appendChild(tryAgainButton);
-            }
+    function startCountdown(button) {
+      countdown = 10;
+      button.textContent = `Continue [${countdown}]`;
+      countdownInterval = setInterval(() => {
+        countdown--;
+        button.textContent = `Continue [${countdown}]`;
+        if (countdown <= 0) {
+          clearInterval(countdownInterval);
+          window.location.href = "https://levi5171.wixstudio.com/my-site-1/blank-2";
         }
+      }, 1000);
+    }
 
-        function startCountdown(button) {
-            countdown = 10;
-            button.textContent = `Continue [${countdown}]`;
-            countdownInterval = setInterval(() => {
-                countdown--;
-                button.textContent = `Continue [${countdown}]`;
-                if (countdown <= 0) {
-                    clearInterval(countdownInterval);
-                    currentQuestionIndex++;
-                    window.location.href = "https://levi5171.wixstudio.com/my-site-1/blank-2";
-                }
-            }, 1000);
-        }
+    function startConfetti() {
+      const canvas = document.getElementById("confetti-canvas");
+      const myConfetti = confetti.create(canvas, { resize: true, useWorker: true });
+      if (confettiInterval) clearInterval(confettiInterval);
+      let count = 0;
+      confettiInterval = setInterval(() => {
+        myConfetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        if (++count >= 3) clearInterval(confettiInterval);
+      }, 1000);
+    }
 
-        function startConfetti() {
-            const canvas = document.getElementById("confetti-canvas");
-            const myConfetti = confetti.create(canvas, { resize: true, useWorker: true });
-
-            if (confettiInterval) {
-                clearInterval(confettiInterval);
-            }
-
-            let count = 0;
-            const maxCount = 3;
-            confettiInterval = setInterval(() => {
-                myConfetti({
-                    particleCount: 100,
-                    spread: 70,
-                    origin: { y: 0.6 }
-                });
-                count++;
-                if (count >= maxCount) {
-                    clearInterval(confettiInterval);
-                }
-            }, 1000);
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            loadQuestion();
-            updateProgressBar();
-        });
-    </script>
+    document.addEventListener("DOMContentLoaded", () => {
+      loadQuestion();
+      updateProgressBar();
+    });
+  </script>
 </body>
 </html>
