@@ -22,97 +22,97 @@
     }
 
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: var(--gray);
-      color: var(--black);
-      padding: 20px;
+      font-family: 'Helvetica', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      line-height: 1.6;
-      position: relative;
-      overflow-x: hidden;
+      height: 100vh;
+      margin: 0;
+      background-color: #E2E2E2;
+      color: #000000;
+      overflow: auto;
     }
 
     .game-wrapper {
       width: 90vmin;
-      height: 90vmin;
-      max-width: 600px;
-      max-height: 600px;
+      height: 80vmin;
+      max-width: 90vmin;
+      max-height: 90vmin;
     }
 
     .question-container {
-      background-color: var(--white);
-      border-radius: 4vmin;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      padding: 25px;
       width: 100%;
       height: 100%;
+      box-sizing: border-box;
+      background-color: #FFFFFF;
+      padding: 2.5vmin;
+      border-radius: 4vmin;
+      box-shadow: 0 0 3vmin rgba(0, 0, 0, 0.1);
       text-align: center;
       position: relative;
-      z-index: 1;
-      overflow-y: auto;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
     }
 
     h1 {
       color: var(--black);
-      margin-bottom: 25px;
-      font-size: clamp(1.8rem, 4vw, 2.2rem);
+      margin-bottom: 2.5vmin;
+      font-size: 3vmin;
     }
 
     .question {
-      font-size: clamp(1.2rem, 3vw, 1.5rem);
-      margin-bottom: 20px;
+      font-size: 2.5vmin;
+      margin-bottom: 2vmin;
       color: var(--black);
-      min-height: 60px;
+      min-height: 6vmin;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .image-container {
-      margin: 0 auto 20px;
-      max-width: 100%;
+      margin: 0 auto 2vmin;
+      max-width: 80%;
       display: flex;
       justify-content: center;
     }
 
     .image {
       max-width: 100%;
-      max-height: 300px;
+      max-height: 20vmin;
       height: auto;
-      border-radius: 8px;
-      margin-top: 10px;
+      border-radius: 1vmin;
+      margin-top: 1vmin;
       display: block;
-      border: 1px solid var(--gray);
+      border: 0.1vmin solid var(--gray);
     }
 
     .buttons {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 15px;
-      margin-top: 25px;
+      gap: 1.5vmin;
+      margin-top: 2.5vmin;
     }
 
     button {
       background-color: #FCD307;
       color: #000000;
       border: none;
-      border-radius: 5px;
+      border-radius: 0.5vmin;
       cursor: pointer;
       font-weight: bold;
-      padding: 10px 20px;
-      margin-top: 10px;
+      padding: 1vmin 2vmin;
+      margin-top: 1vmin;
       transition: background-color 0.3s;
-      font-size: 18px;
+      font-size: 1.8vmin;
     }
 
     button:hover {
       background-color: var(--orange);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transform: translateY(-0.2vmin);
+      box-shadow: 0 0.4vmin 0.8vmin rgba(0, 0, 0, 0.1);
     }
 
     button:active {
@@ -120,42 +120,42 @@
     }
 
     #feedback {
-      margin-top: 20px;
-      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+      margin-top: 2vmin;
+      font-size: 2vmin;
       font-weight: bold;
-      min-height: 30px;
+      min-height: 3vmin;
     }
 
     .correct-feedback {
       color: var(--green);
       background-color: rgba(46, 125, 50, 0.1);
-      padding: 10px;
-      border-radius: 5px;
+      padding: 1vmin;
+      border-radius: 0.5vmin;
     }
 
     .incorrect-feedback {
       color: var(--red);
       background-color: rgba(198, 40, 40, 0.1);
-      padding: 10px;
-      border-radius: 5px;
+      padding: 1vmin;
+      border-radius: 0.5vmin;
     }
 
     #explanation {
-      margin-top: 15px;
-      font-size: clamp(1rem, 2vw, 1.1rem);
+      margin-top: 1.5vmin;
+      font-size: 1.8vmin;
       color: var(--black);
-      padding: 10px;
+      padding: 1vmin;
       background-color: rgba(0, 0, 0, 0.05);
-      border-radius: 8px;
+      border-radius: 0.8vmin;
     }
 
     .progress-bar {
       display: flex;
       justify-content: space-between;
-      gap: 4px;
+      gap: 0.4vmin;
       width: 100%;
-      height: 12px;
-      margin-bottom: 20px;
+      height: 1.2vmin;
+      margin-bottom: 2vmin;
       background-color: transparent;
     }
 
@@ -167,13 +167,13 @@
     }
 
     .progress-segment:first-child {
-      border-top-left-radius: 6px;
-      border-bottom-left-radius: 6px;
+      border-top-left-radius: 0.6vmin;
+      border-bottom-left-radius: 0.6vmin;
     }
 
     .progress-segment:last-child {
-      border-top-right-radius: 6px;
-      border-bottom-right-radius: 6px;
+      border-top-right-radius: 0.6vmin;
+      border-bottom-right-radius: 0.6vmin;
     }
 
     .progress-segment.filled {
@@ -195,10 +195,10 @@
 
     .pill {
       display: inline-block;
-      padding: 8px 16px;
-      border-radius: 20px;
+      padding: 0.8vmin 1.6vmin;
+      border-radius: 2vmin;
       font-weight: bold;
-      margin: 5px;
+      margin: 0.5vmin;
     }
 
     .correct-pill {
@@ -206,35 +206,17 @@
       color: var(--green);
     }
 
-    .try-again-pill {
-      background-color: #FFCDD2;
-      color: var(--red);
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-      padding: 10px 20px;
-      margin-top: 10px;
-      transition: background-color 0.3s;
-      font-size: 18px;
-    }
-
-    .try-again-pill:hover {
-      background-color: #FF1744;
-      color: white;
-    }
-
     .continue-pill {
       background-color: var(--yellow);
       color: var(--black);
       border: none;
-      border-radius: 20px;
+      border-radius: 2vmin;
       cursor: pointer;
       font-weight: bold;
-      padding: 10px 20px;
-      margin-top: 10px;
+      padding: 1vmin 2vmin;
+      margin-top: 1vmin;
       transition: background-color 0.3s;
-      font-size: 18px;
+      font-size: 1.8vmin;
     }
 
     .continue-pill:hover {
@@ -244,28 +226,28 @@
     .button-container {
       display: flex;
       justify-content: center;
-      gap: 10px;
-      margin-top: 10px;
+      gap: 1vmin;
+      margin-top: 1vmin;
     }
 
     .choose-option {
-      font-size: 1rem;
-      margin-bottom: 20px;
+      font-size: 2.5vmin;
+      margin-bottom: 2vmin;
       color: var(--black);
     }
 
     @media (max-width: 600px) {
       body {
-        padding: 15px;
+        padding: 1.5vmin;
       }
 
       .buttons {
-        gap: 10px;
+        gap: 1vmin;
       }
 
       button {
         flex: 1 1 100%;
-        padding: 10px;
+        padding: 1vmin;
       }
     }
   </style>
@@ -292,6 +274,7 @@
         <button onclick="checkAnswer(true)">True</button>
         <button onclick="checkAnswer(false)">False</button>
       </div>
+
       <div id="feedback"></div>
       <div id="explanation"></div>
       <div class="button-container" id="actionButtons"></div>
@@ -303,7 +286,7 @@
   <script>
     let questions = [
       {
-        question: "<strong>Does WeSpark leverage Artificial Intelligence's power?</strong>",
+        question: "<strong>Does WeSpark leverage <br> Artificial Intelligence's power?</strong>",
         answer: true,
         image: "https://static.wixstatic.com/media/9c422e_e854a6e541554bdfba5311e3527e09b3~mv2.png",
         explanation: "WeSpark uses AI as a core technology for new products & services, it teaches AI introduction training, and empowers all digital education courses with AI."
@@ -313,7 +296,6 @@
     let currentQuestionIndex = 0;
     let correctAnswers = 1;
     let confettiInterval;
-    let feedbackConfig = {};
     let countdownInterval;
     let countdown = 10;
 
@@ -348,9 +330,8 @@
       const explanationElement = document.getElementById("explanation");
       const actionButtons = document.getElementById("actionButtons");
 
-      document.querySelectorAll(".buttons button").forEach(btn => btn.disabled = true);
-
       if (userAnswer === correctAnswer) {
+        document.querySelectorAll(".buttons button").forEach(btn => btn.disabled = true);
         feedbackElement.innerHTML = `<div class="pill correct-pill">Correct!</div>`;
         startConfetti();
         correctAnswers++;
@@ -364,18 +345,9 @@
         actionButtons.appendChild(continueButton);
         startCountdown(continueButton);
       } else {
+        document.querySelectorAll(".buttons button").forEach(btn => btn.disabled = false);
         feedbackElement.innerHTML = `<div class="incorrect-feedback">Incorrect!</div>`;
         explanationElement.textContent = questions[currentQuestionIndex].explanation;
-        const tryAgainButton = document.createElement("button");
-        tryAgainButton.className = "try-again-pill";
-        tryAgainButton.textContent = "Try Again";
-        tryAgainButton.onclick = () => {
-          feedbackElement.textContent = "";
-          explanationElement.textContent = "";
-          actionButtons.innerHTML = "";
-          loadQuestion();
-        };
-        actionButtons.appendChild(tryAgainButton);
       }
     }
 
