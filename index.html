@@ -13,14 +13,12 @@
       --white: #FFFFFF;
       --green: #2E7D32;
       --red: #C62828;
-    } 
-
+    }
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-
     body {
       font-family: 'Helvetica', sans-serif;
       display: flex;
@@ -32,14 +30,12 @@
       color: #000000;
       overflow: auto;
     }
-
     .game-wrapper {
       width: 95vmin;
       height: 80vmin;
       max-width: 200vmin;
       max-height: 90vmin;
     }
-
     .question-container {
       width: 100%;
       height: 100%;
@@ -54,13 +50,11 @@
       display: flex;
       flex-direction: column;
     }
-
     h1 {
       color: var(--black);
       margin-bottom: 2.5vmin;
       font-size: 3vmin;
     }
-
     .question {
       font-size: 2.5vmin;
       margin-bottom: 2vmin;
@@ -70,14 +64,12 @@
       align-items: center;
       justify-content: center;
     }
-
     .image-container {
       margin: 0 auto 2vmin;
       max-width: 80%;
       display: flex;
       justify-content: center;
     }
-
     .image {
       max-width: 100%;
       max-height: 20vmin;
@@ -87,7 +79,6 @@
       display: block;
       border: 0.1vmin solid var(--gray);
     }
-
     .buttons {
       display: flex;
       flex-wrap: wrap;
@@ -95,7 +86,6 @@
       gap: 1.5vmin;
       margin-top: 2.5vmin;
     }
-
     button {
       background-color: #FCD307;
       color: #000000;
@@ -108,38 +98,32 @@
       transition: background-color 0.3s;
       font-size: 1.8vmin;
     }
-
     button:hover {
       background-color: var(--orange);
       transform: translateY(-0.2vmin);
       box-shadow: 0 0.4vmin 0.8vmin rgba(0, 0, 0, 0.1);
     }
-
     button:active {
       transform: translateY(0);
     }
-
     #feedback {
       margin-top: 2vmin;
       font-size: 2vmin;
       font-weight: bold;
       min-height: 3vmin;
     }
-
     .correct-feedback {
       color: var(--green);
       background-color: rgba(46, 125, 50, 0.1);
       padding: 1vmin;
       border-radius: 0.5vmin;
     }
-
     .incorrect-feedback {
       color: var(--red);
       background-color: rgba(198, 40, 40, 0.1);
       padding: 1vmin;
       border-radius: 0.5vmin;
     }
-
     #explanation {
       margin-top: 1.5vmin;
       font-size: 1.8vmin;
@@ -148,7 +132,6 @@
       background-color: rgba(0, 0, 0, 0.05);
       border-radius: 0.8vmin;
     }
-
     .progress-bar {
       display: flex;
       justify-content: space-between;
@@ -158,32 +141,26 @@
       margin-bottom: 2vmin;
       background-color: transparent;
     }
-
     .progress-segment {
       flex: 1;
       background-color: #ddd;
       transition: background-color 0.3s ease;
       height: 100%;
     }
-
     .progress-segment:first-child {
       border-top-left-radius: 0.6vmin;
       border-bottom-left-radius: 0.6vmin;
     }
-
     .progress-segment:last-child {
       border-top-right-radius: 0.6vmin;
       border-bottom-right-radius: 0.6vmin;
     }
-
     .progress-segment.filled {
       background: linear-gradient(to right, #FCD307, #FFBC00);
     }
-
     .progress-segment.flashing {
       animation: flash 1s infinite;
     }
-
     @keyframes flash {
       0%, 100% {
         background-color: #ddd;
@@ -192,7 +169,6 @@
         background-color: rgba(252, 211, 7, 0.7);
       }
     }
-
     .pill {
       display: inline-block;
       padding: 0.8vmin 1.6vmin;
@@ -200,12 +176,10 @@
       font-weight: bold;
       margin: 0.5vmin;
     }
-
     .correct-pill {
       background-color: rgba(46, 125, 50, 0.1);
       color: var(--green);
     }
-
     .continue-pill {
       background-color: var(--yellow);
       color: var(--black);
@@ -218,33 +192,29 @@
       transition: background-color 0.3s;
       font-size: 1.8vmin;
     }
-
     .continue-pill:hover {
-      background-color: var(--orange);
+      background-color: var(--yellow);
+      transform: none;
+      box-shadow: none;
     }
-
     .button-container {
       display: flex;
       justify-content: center;
       gap: 1vmin;
       margin-top: 1vmin;
     }
-
     .choose-option {
       font-size: 2.5vmin;
       margin-bottom: 2vmin;
       color: var(--black);
     }
-
     @media (max-width: 600px) {
       body {
         padding: 1.5vmin;
       }
-
       .buttons {
         gap: 1vmin;
       }
-
       button {
         flex: 1 1 100%;
         padding: 1vmin;
@@ -274,13 +244,11 @@
         <button onclick="checkAnswer(true)">True</button>
         <button onclick="checkAnswer(false)">False</button>
       </div>
-
       <div id="feedback"></div>
       <div id="explanation"></div>
       <div class="button-container" id="actionButtons"></div>
     </div>
   </div>
-
   <canvas id="confetti-canvas" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100vmin; height: 100vmin; pointer-events: none; z-index: 100;"></canvas>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script>
@@ -292,13 +260,11 @@
         explanation: "WeSpark uses AI as a core technology for new products & services, it teaches AI introduction training, and empowers all digital education courses with AI."
       }
     ];
-
     let currentQuestionIndex = 0;
     let correctAnswers = 1;
     let confettiInterval;
     let countdownInterval;
     let countdown = 10;
-
     function updateProgressBar() {
       const segments = document.querySelectorAll(".progress-segment");
       segments.forEach((segment, index) => {
@@ -312,7 +278,6 @@
         }
       });
     }
-
     function loadQuestion() {
       const questionObj = questions[currentQuestionIndex];
       document.getElementById("question").innerHTML = questionObj.question;
@@ -323,13 +288,11 @@
       document.getElementById("actionButtons").innerHTML = "";
       document.querySelectorAll(".buttons button").forEach(btn => btn.disabled = false);
     }
-
     function checkAnswer(userAnswer) {
       const correctAnswer = questions[currentQuestionIndex].answer;
       const feedbackElement = document.getElementById("feedback");
       const explanationElement = document.getElementById("explanation");
       const actionButtons = document.getElementById("actionButtons");
-
       if (userAnswer === correctAnswer) {
         document.querySelectorAll(".buttons button").forEach(btn => btn.disabled = true);
         feedbackElement.innerHTML = `<div class="pill correct-pill">Correct!</div>`;
@@ -337,11 +300,10 @@
         correctAnswers++;
         updateProgressBar();
         explanationElement.textContent = questions[currentQuestionIndex].explanation;
-
         const continueButton = document.createElement("button");
         continueButton.className = "continue-pill";
-        continueButton.textContent = `Continue (10)`;
-        continueButton.onclick = () => window.location.href = "https://l3v145431.github.io/MATCHONE.github.io/";
+        continueButton.textContent = `Continue [10]`;
+        continueButton.onclick = () => window.location.href = "https://levi5171.wixstudio.com/my-site-1/blank-2";
         actionButtons.appendChild(continueButton);
         startCountdown(continueButton);
       } else {
@@ -350,20 +312,18 @@
         explanationElement.textContent = questions[currentQuestionIndex].explanation;
       }
     }
-
     function startCountdown(button) {
       countdown = 10;
-      button.textContent = `Continue (${countdown})`;
+      button.textContent = `Continue [${countdown}]`;
       countdownInterval = setInterval(() => {
         countdown--;
-        button.textContent = `Continue (${countdown})`;
+        button.textContent = `Continue [${countdown}]`;
         if (countdown <= 0) {
           clearInterval(countdownInterval);
-          window.location.href = "https://l3v145431.github.io/MATCHONE.github.io/";
+          window.location.href = "https://levi5171.wixstudio.com/my-site-1/blank-2";
         }
       }, 1000);
     }
-
     function startConfetti() {
       const canvas = document.getElementById("confetti-canvas");
       const myConfetti = confetti.create(canvas, { resize: true, useWorker: true });
@@ -374,7 +334,6 @@
         if (++count >= 3) clearInterval(confettiInterval);
       }, 1000);
     }
-
     document.addEventListener("DOMContentLoaded", () => {
       loadQuestion();
       updateProgressBar();
