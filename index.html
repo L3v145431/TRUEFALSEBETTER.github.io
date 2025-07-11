@@ -314,10 +314,10 @@
     }
     function startCountdown(button) {
       countdown = 10;
-      button.textContent = `Continue [${countdown}]`;
+      button.textContent = `Continue (${countdown})`;
       countdownInterval = setInterval(() => {
         countdown--;
-        button.textContent = `Continue [${countdown}]`;
+        button.textContent = `Continue (${countdown})`;
         if (countdown <= 0) {
           clearInterval(countdownInterval);
           window.location.href = "https://l3v145431.github.io/MATCHONE.github.io/";
